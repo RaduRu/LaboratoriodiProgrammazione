@@ -1,0 +1,14 @@
+//
+// Created by Radu Ursu on 14/11/23.
+//
+
+#ifndef LABORATORIODIPROGRAMMAZIONE_USER_H
+#define LABORATORIODIPROGRAMMAZIONE_USER_H
+
+
+class User {
+
+};
+
+
+#endif //LABORATORIODIPROGRAMMAZIONE_USER_H
