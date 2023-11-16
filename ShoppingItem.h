@@ -5,12 +5,13 @@
 #ifndef LABORATORIODIPROGRAMMAZIONE_SHOPPINGITEM_H
 #define LABORATORIODIPROGRAMMAZIONE_SHOPPINGITEM_H
 #include <string>
+#include <list>
 using namespace std;
+#include "Subject.h"
 
 class ShoppingItem {
 public:
     ShoppingItem(const string &name, const string &category, int quantity): name(name), category(category), quantity(quantity) { }
-
 
     void setQuantity(int newQuantity){
         quantity= newQuantity;
@@ -24,6 +25,7 @@ public:
     int getQuantity(){
         return quantity;
     }
+
 
 private:
     string name;

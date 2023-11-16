@@ -5,12 +5,17 @@
 #ifndef LABORATORIODIPROGRAMMAZIONE_SUBJECT_H
 #define LABORATORIODIPROGRAMMAZIONE_SUBJECT_H
 #include "Observer.h"
+#include <list>
+using namespace std;
 
 class Subject {
 public:
     virtual void subscribe(Observer* o) = 0;
     virtual void unsubscribe(Observer* o) = 0;
     virtual void notify() = 0;
+
+private :
+    list<Observer*> ObserverList;
 
 
 };
