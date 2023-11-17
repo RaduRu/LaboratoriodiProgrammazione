@@ -7,22 +7,24 @@
 #include "Subject.h"
 #include "ShoppingItem.h"
 #include <vector>
+#include <map>
+#include "Date.h"
+
 
 class ShoppingList : public Subject {
 public:
-    //Here there's the function that adds an item to the ShoppingList
-    void addItem(ShoppingItem &item);
-    //Here there's the function that removes an item from the ShoppingList
-    void removeItem(ShoppingItem &item);
-    //We use this to look for an item in the ShoppingList
-    const std::vector<ShoppingItem> &getItem();
+    ShoppingList(const string &name, int g, int m, int a);
+    void addItem( const ShoppingItem& item, int quantity);
+    void removeItem(ShoppingItem item);
 
     void subscribe(Observer* o) override;
     void unsubscribe(Observer* o)override;
     void notify() override;
 
 private:
-    list<ShoppingItem> Item;
+    Date date;
+    string name;
+    map<ShoppingItem,int> Items;
     list<Observer*> ObserverList;
 };
 

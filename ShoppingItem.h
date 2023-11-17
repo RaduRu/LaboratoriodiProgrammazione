@@ -11,26 +11,25 @@ using namespace std;
 
 class ShoppingItem {
 public:
-    ShoppingItem(const string &name, const string &category, int quantity): name(name), category(category), quantity(quantity) { }
+    ShoppingItem(const string &name, const string &category): name(name), category(category){ }
 
-    void setQuantity(int newQuantity){
-        quantity= newQuantity;
-    }
     const string &getName(){
         return name;
     }
+
     const string &getCategory(){
         return category;
     }
-    int getQuantity(){
-        return quantity;
+
+    bool operator==(const ShoppingItem &rhs) const {
+        return name == rhs.name &&
+               category == rhs.category;
     }
 
 
 private:
     string name;
     string category;
-    int quantity;
 };
 
 

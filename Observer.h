@@ -4,12 +4,13 @@
 
 #ifndef LABORATORIODIPROGRAMMAZIONE_OBSERVER_H
 #define LABORATORIODIPROGRAMMAZIONE_OBSERVER_H
+#include "Subject.h"
 
 
 class Observer {
+public:
     virtual void update();
-    virtual void attach();
-    virtual void detach();
+
 
 
 };
