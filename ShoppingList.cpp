@@ -34,6 +34,20 @@ void ShoppingList :: removeItem(ShoppingItem item){
     notify();
 }
 
+void ShoppingList::subscribe(Observer *o) {
+    ObserverList.push_back(o);
+}
+
+void ShoppingList::unsubscribe(Observer *o) {
+    ObserverList.remove(o);
+}
+
+void ShoppingList::notify() {
+    for ( auto &obs : ObserverList) {        //const auto &obs : ObserverList??
+        obs->update();
+    }
+}
+
 
 
 

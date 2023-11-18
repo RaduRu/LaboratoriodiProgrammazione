@@ -20,10 +20,12 @@ void User::removeShoppingList(ShoppingList *shoppingList) {
 
 void User::addItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem &item, int quantity) {
     shoppingList->addItem(item,quantity);
+
 }
 
-void User::update() {
 
+
+void User::update() {
 }
 
 
