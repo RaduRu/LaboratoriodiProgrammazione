@@ -16,7 +16,7 @@ public:
     void removeShoppingList(ShoppingList* shoppingList);
     void addItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item, int quantity);
 
-    void update() override;
+    void update(ShoppingList* updatedList);
 
 
 

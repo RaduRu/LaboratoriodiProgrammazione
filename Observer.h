@@ -11,7 +11,7 @@ class Observer {
 public:
 
     virtual ~Observer() {};
-    virtual void update();
+    virtual void update(ShoppingList* updatedList) = 0;
 
 
 

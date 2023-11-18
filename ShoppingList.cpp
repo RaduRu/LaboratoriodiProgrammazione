@@ -14,6 +14,14 @@ ShoppingList::ShoppingList(const string &name, int g, int m, int a ):date(g,m,a)
     this->name=name;
 }
 
+const string &ShoppingList::getName() const {
+    return name;
+}
+
+const map<ShoppingItem, int> &ShoppingList::getItems() const {
+    return Items;
+}
+
 void ShoppingList :: addItem(const ShoppingItem &Newitem, int quantity){
     auto ExistingItem = Items.find(Newitem);
     if (ExistingItem != Items.end()){
@@ -23,7 +31,7 @@ void ShoppingList :: addItem(const ShoppingItem &Newitem, int quantity){
         Items.insert(pair<ShoppingItem,int>(Newitem,quantity));
     }
 
-    notify();
+    notify(this);
 }
 
 void ShoppingList :: removeItem(ShoppingItem item){
@@ -31,7 +39,7 @@ void ShoppingList :: removeItem(ShoppingItem item){
     if (ExistingItem != Items.end()){
         Items.erase(ExistingItem);
     }
-    notify();
+    notify(this);
 }
 
 void ShoppingList::subscribe(Observer *o) {
@@ -42,9 +50,9 @@ void ShoppingList::unsubscribe(Observer *o) {
     ObserverList.remove(o);
 }
 
-void ShoppingList::notify() {
-    for ( auto &obs : ObserverList) {        //const auto &obs : ObserverList??
-        obs->update();
+void ShoppingList::notify(ShoppingList* updatedList) {
+    for (auto observer : ObserverList) {
+        observer->update(updatedList);
     }
 }
 

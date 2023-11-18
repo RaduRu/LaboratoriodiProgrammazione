@@ -13,7 +13,7 @@ class ShoppingItem {
 public:
     ShoppingItem(const string &name, const string &category): name(name), category(category){ }
 
-    const string &getName(){
+     const string & getName() const {
         return name;
     }
 

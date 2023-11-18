@@ -16,10 +16,12 @@ public:
     ShoppingList(const string &name, int g, int m, int a);
     void addItem( const ShoppingItem& item, int quantity);
     void removeItem(ShoppingItem item);
+    const string &getName() const;
+    const map<ShoppingItem, int> &getItems() const;
 
     void subscribe(Observer* o) override;
     void unsubscribe(Observer* o)override;
-    void notify() override;
+    void notify(ShoppingList* Updatedlist);                                 // in modo tale che sappia quale lista è stata aggiornata
 
 private:
     Date date;
