@@ -5,9 +5,8 @@
 #ifndef LABORATORIODIPROGRAMMAZIONE_SHOPPINGITEM_H
 #define LABORATORIODIPROGRAMMAZIONE_SHOPPINGITEM_H
 #include <string>
-#include <list>
-using namespace std;
 #include "Subject.h"
+using namespace std;
 
 class ShoppingItem {
 public:
@@ -17,14 +16,18 @@ public:
         return name;
     }
 
-    const string &getCategory(){
+    const string &getCategory() const {
         return category;
     }
 
-    bool operator==(const ShoppingItem &rhs) const {
-        return name == rhs.name &&
-               category == rhs.category;
+     bool isEqual (const ShoppingItem &item) const {
+        return (item.getName() == name && item.getCategory() == category);
     }
+
+    bool operator < (const ShoppingItem &item) const {
+        return (name < item.getName() || (name == item.getName() && category < item.getCategory()));
+    }
+
 
 
 private:

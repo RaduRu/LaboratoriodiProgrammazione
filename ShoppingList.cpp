@@ -23,7 +23,9 @@ const map<ShoppingItem, int> &ShoppingList::getItems() const {
 }
 
 void ShoppingList :: addItem(const ShoppingItem &Newitem, int quantity){
-    auto ExistingItem = Items.find(Newitem);
+    auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&Newitem](const pair<ShoppingItem, int>& element) {
+        return element.first.isEqual(Newitem);
+    });
     if (ExistingItem != Items.end()){
         ExistingItem->second += quantity;
     }
@@ -35,7 +37,9 @@ void ShoppingList :: addItem(const ShoppingItem &Newitem, int quantity){
 }
 
 void ShoppingList :: removeItem(ShoppingItem item){
-    auto ExistingItem = Items.find(item);
+    auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&item](const pair<ShoppingItem, int>& element) {
+        return element.first.isEqual(item);
+    });
     if (ExistingItem != Items.end()){
         Items.erase(ExistingItem);
     }
@@ -52,7 +56,7 @@ void ShoppingList::unsubscribe(Observer *o) {
 
 void ShoppingList::notify(ShoppingList* updatedList) {
     for (auto observer : ObserverList) {
-        observer->update(updatedList);
+        observer->update();
     }
 }
 

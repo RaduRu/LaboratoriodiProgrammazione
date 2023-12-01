@@ -29,15 +29,15 @@ void User::addItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem 
 
 
 
-void User::update( ShoppingList *updatedList) {
-cout << " L'utente " << ID << " è stato notificato che  " << updatedList->getName() << " è stata cambiata " << endl;
+void User::update() {}
+/*cout << " L'utente " << ID << " è stato notificato che  " << updatedList->getName() << " è stata cambiata " << endl;
     cout << " La nuova lista della spesa è la seguente: " << endl;
     for (auto item : updatedList->getItems()) {
         cout << item.first.getName() << " " << item.second << endl;
     }
     cout << endl;
 
-}
+}*/
 
 
 

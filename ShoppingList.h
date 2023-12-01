@@ -6,7 +6,7 @@
 #define LABORATORIODIPROGRAMMAZIONE_SHOPPINGLIST_H
 #include "Subject.h"
 #include "ShoppingItem.h"
-#include <vector>
+#include <list>
 #include <map>
 #include "Date.h"
 

@@ -4,16 +4,14 @@
 
 #ifndef LABORATORIODIPROGRAMMAZIONE_OBSERVER_H
 #define LABORATORIODIPROGRAMMAZIONE_OBSERVER_H
-#include "Subject.h"
+
 
 
 class Observer {
 public:
 
     virtual ~Observer() {};
-    virtual void update(ShoppingList* updatedList) = 0;
-
-
+    virtual void update() = 0;
 
 };
 
