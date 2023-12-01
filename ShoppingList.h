@@ -21,7 +21,7 @@ public:
 
     void subscribe(Observer* o) override;
     void unsubscribe(Observer* o)override;
-    void notify(ShoppingList* Updatedlist);                                 // in modo tale che sappia quale lista è stata aggiornata
+    void notify() override;
 
 private:
     Date date;

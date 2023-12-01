@@ -15,12 +15,13 @@ public:
     void addShoppingList(ShoppingList* shoppingList);
     void removeShoppingList(ShoppingList* shoppingList);
     void addItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item, int quantity);
-
+    void removeItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item);
     void update() override;
 
 
 
 private:
+    ShoppingList *lastShoppingListModified;
     string ID;
     list<ShoppingList*> shoppingLists;
 

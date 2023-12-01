@@ -33,7 +33,7 @@ void ShoppingList :: addItem(const ShoppingItem &Newitem, int quantity){
         Items.insert(pair<ShoppingItem,int>(Newitem,quantity));
     }
 
-    notify(this);
+    notify();
 }
 
 void ShoppingList :: removeItem(ShoppingItem item){
@@ -41,9 +41,12 @@ void ShoppingList :: removeItem(ShoppingItem item){
         return element.first.isEqual(item);
     });
     if (ExistingItem != Items.end()){
-        Items.erase(ExistingItem);
+        if(ExistingItem->second > 1)
+            ExistingItem->second -= 1;
+        else if(ExistingItem->second == 1)
+            Items.erase(ExistingItem);
     }
-    notify(this);
+    notify();
 }
 
 void ShoppingList::subscribe(Observer *o) {
@@ -54,7 +57,7 @@ void ShoppingList::unsubscribe(Observer *o) {
     ObserverList.remove(o);
 }
 
-void ShoppingList::notify(ShoppingList* updatedList) {
+void ShoppingList::notify() {
     for (auto observer : ObserverList) {
         observer->update();
     }

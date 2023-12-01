@@ -4,9 +4,9 @@
 
 #include "User.h"
 #include <iostream>
-using namespace std;
 #include "ShoppingList.h"
 #include "ShoppingItem.h"
+using namespace std;
 
 User::User(const string &ID) : ID(ID) {
     this->ID = ID;
@@ -23,21 +23,28 @@ void User::removeShoppingList(ShoppingList *shoppingList) {
 }
 
 void User::addItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem &item, int quantity) {
+    lastShoppingListModified = shoppingList;
     shoppingList->addItem(item,quantity);
+
+}
+
+void User::removeItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem &item) {
+    lastShoppingListModified = shoppingList;
+    shoppingList->removeItem(item);
 
 }
 
 
 
-void User::update() {}
-/*cout << " L'utente " << ID << " è stato notificato che  " << updatedList->getName() << " è stata cambiata " << endl;
+void User::update() {
+cout << " L'utente " << ID << " è stato notificato che  " << lastShoppingListModified->getName() << " è stata cambiata " << endl;
     cout << " La nuova lista della spesa è la seguente: " << endl;
-    for (auto item : updatedList->getItems()) {
-        cout << item.first.getName() << " " << item.second << endl;
+    for (auto item : lastShoppingListModified->getItems()) {
+        cout << item.first.getName() << " q: " << item.second << endl;
     }
     cout << endl;
 
-}*/
+}
 
 
 
