@@ -59,7 +59,7 @@ void ShoppingList::unsubscribe(Observer *o) {
 
 void ShoppingList::notify() {
     for (auto observer : ObserverList) {
-        observer->update();
+        observer->update(); // Notifica l'utente
     }
 }
 

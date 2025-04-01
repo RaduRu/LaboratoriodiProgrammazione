@@ -6,9 +6,11 @@
 #define LABORATORIODIPROGRAMMAZIONE_USER_H
 #include <list>
 #include "ShoppingList.h"
+using namespace std;
 
 
 class User : public Observer {
+
 
 public:
     User(const string &ID);
@@ -17,6 +19,14 @@ public:
     void addItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item, int quantity);
     void removeItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item);
     void update() override;
+
+    const string &getID() const {
+        return ID;
+    }
+    ShoppingList* getLastShoppingListModified() const {
+        return lastShoppingListModified;
+    }
+
 
 
 

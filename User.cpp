@@ -15,11 +15,13 @@ User::User(const string &ID) : ID(ID) {
 void User::addShoppingList(ShoppingList *shoppingList) {
     shoppingLists.push_back(shoppingList);
     shoppingList->subscribe(this);
+    lastShoppingListModified = shoppingList;
 }
 
 void User::removeShoppingList(ShoppingList *shoppingList) {
     shoppingLists.remove(shoppingList);
     shoppingList->unsubscribe(this);
+    lastShoppingListModified = shoppingList;
 }
 
 void User::addItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem &item, int quantity) {
