@@ -16,15 +16,19 @@ Date:: Date (int g, int m, int a){
         this->g=0;
         this->m=0;
         this->a=0;
+        out();
     }
 
 }
 
 bool Date :: val(int g, int m, int a){
-    if ((g>31) || (m>12)) return 0;                                               //controllo il giorno e il mese
-    else if ((m==11 || m==4 || m==6 || m==9) && (g>30)) return 0;                 //controllo che i mesi rispettivi non abbiano più di 30g
-    else if (a/4 != 0 && m==2 && g>28) return 0;                                  //nell'anno bisestile febbraio non deve avere più di 28g
-    else return 1;
+    if ((g>31) || (m>12))
+        return false;
+    else if ((m==11 || m==4 || m==6 || m==9) && (g>30))
+        return false;
+    else if (a%4 != 0 && m==2 && g>28)
+        return false;
+    else return true;
 }
 
 void Date :: out(){

@@ -14,7 +14,7 @@ public:
 
 private:
     int g, m, a;
-    bool val(int g, int m, int a);
+    bool static val(int g, int m, int a);
 
 
 
