@@ -17,10 +17,10 @@ public:
     void addItem( const ShoppingItem& item);
     void removeItem(ShoppingItem item);
     const string &getName() const;
-    void searchItemsByName(string name);
-    void searchItemsByCategory(string category);
-    void searchItemsBought();
-    void searchItemsNotBought();
+    void ItemsByName(string name);
+    void ItemsByCategory(string category);
+    void ItemsBought();
+    void ItemsNotBought();
     void setItemBought(ShoppingItem item);
     void printList();
 

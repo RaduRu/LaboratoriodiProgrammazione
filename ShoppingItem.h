@@ -6,6 +6,7 @@
 #define LABORATORIODIPROGRAMMAZIONE_SHOPPINGITEM_H
 #include <string>
 #include "Subject.h"
+#include <iostream>
 using namespace std;
 
 class ShoppingItem {
@@ -52,7 +53,7 @@ public:
     }
 
     void printItem() const {
-        cout << "Item: " << name << ", Category: " << category << ", Quantity: " << quantity;
+        cout << " --> " << name << "  " << category << " N: " << quantity;
         if (bought) {
             cout << ", X  ";
         } else {

@@ -18,9 +18,16 @@ public:
     void removeShoppingList(ShoppingList* shoppingList);
     void addItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item);
     void removeItemonShoppingList(ShoppingList* shoppingList, const ShoppingItem& item);
-    void update() override;
     bool verifyPermissionModList(ShoppingList *shoppingList);
+    void searchItemsByName(ShoppingList *shoppingList, const string &name);
+    void searchItemsByCategory(ShoppingList *shoppingList, const string &category);
+    void searchBoughtItems(ShoppingList *shoppingList);
+    void searchUnboughtItems(ShoppingList *shoppingList);
+    void buyItem(ShoppingList *shoppingList, const ShoppingItem &item);
 
+
+
+    void update() override;
     const string &getID() const {
         return ID;
     }

@@ -52,14 +52,15 @@ void ShoppingList::PrintListsearch(list<ShoppingItem> list) {
 }
 
 void ShoppingList::printList() {
-    cout << "Lista della spesa: " << name << endl;
+
     for (const auto &item : Items) {
         item.printItem();
     }
+    cout << "------------------------------- "  << endl;
 
 }
 
-void ShoppingList::searchItemsByName(string name) {
+void ShoppingList::ItemsByName(string name) {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.getName().contains(name)) {
@@ -70,7 +71,7 @@ void ShoppingList::searchItemsByName(string name) {
 
 }
 
-void ShoppingList::searchItemsByCategory(string category) {
+void ShoppingList::ItemsByCategory(string category) {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.getCategory()==category) {
@@ -81,7 +82,7 @@ void ShoppingList::searchItemsByCategory(string category) {
 
 }
 
-void ShoppingList::searchItemsBought() {
+void ShoppingList::ItemsBought() {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.isBought()) {
@@ -92,7 +93,7 @@ void ShoppingList::searchItemsBought() {
 
 }
 
-void ShoppingList::searchItemsNotBought() {
+void ShoppingList::ItemsNotBought() {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (!item.isBought()) {

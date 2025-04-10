@@ -59,7 +59,47 @@ bool User::verifyPermissionModList(ShoppingList *shoppingList) {
 void User::update() {
 cout << " L'utente " << ID << " è stato notificato che  " << lastShoppingListModified->getName() << " è stata cambiata " << endl;
     cout << " La nuova lista della spesa è la seguente: " << endl;
-    printList(lastShoppingListModified);
+    lastShoppingListModified->printList();
+
+}
+
+void User::searchItemsByName(ShoppingList *shoppingList, const string &name) {
+    if(!verifyPermissionModList(shoppingList)) {
+        return;
+    }
+    shoppingList->ItemsByName(name);
+}
+
+void User::searchItemsByCategory(ShoppingList *shoppingList, const string &category) {
+    if(!verifyPermissionModList(shoppingList)) {
+        return;
+    }
+    shoppingList->ItemsByCategory(category);
+
+}
+
+void User::searchBoughtItems(ShoppingList *shoppingList) {
+    if(!verifyPermissionModList(shoppingList)) {
+        return;
+    }
+    shoppingList->ItemsBought();
+
+}
+
+void User::searchUnboughtItems(ShoppingList *shoppingList) {
+    if(!verifyPermissionModList(shoppingList)) {
+        return;
+    }
+    shoppingList->ItemsNotBought();
+
+}
+
+void User::buyItem(ShoppingList *shoppingList, const ShoppingItem &item) {
+    if(!verifyPermissionModList(shoppingList)) {
+        return;
+    }
+    lastShoppingListModified = shoppingList;
+    shoppingList->setItemBought(item);
 
 }
 

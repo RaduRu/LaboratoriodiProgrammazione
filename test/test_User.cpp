@@ -5,7 +5,6 @@
 #include "../User.h"
 #include "../ShoppingList.h"
 #include "../ShoppingItem.h"
-
 TEST(UserTest, ConstructorInitializesCorrectly) {
     User user("Luca");
     EXPECT_EQ(user.getID(), "Luca");
@@ -13,7 +12,7 @@ TEST(UserTest, ConstructorInitializesCorrectly) {
 
 TEST(UserTest, AddShoppingList) {
     User user("Luca");
-    ShoppingList shoppingList("Lista1", 14, 11, 2023);
+    ShoppingList shoppingList("Lista1");
 
     user.addShoppingList(&shoppingList);
     shoppingList.notify();
@@ -23,74 +22,152 @@ TEST(UserTest, AddShoppingList) {
     std::string output = testing::internal::GetCapturedStdout();
 
     // Verifica che il nome della lista notificata sia corretto
-    EXPECT_TRUE(output.find("Lista1") != std::string::npos);
+    EXPECT_TRUE(output.contains("Lista1") );
 }
 
 TEST(UserTest, RemoveShoppingList) {
     User user("Luca");
-    ShoppingList shoppingList("Lista1", 14, 11, 2023);
+    ShoppingList shoppingList("Lista1");
+    ShoppingList shoppingList2("Lista2");
 
     user.addShoppingList(&shoppingList);
-
-    testing::internal::CaptureStdout();
-    user.update();
-    std::string outputBefore = testing::internal::GetCapturedStdout();
-    EXPECT_TRUE(outputBefore.find("Lista1") != std::string::npos);  // Verifica che "Lista1" sia presente
-
-    // Rimuovo la lista
     user.removeShoppingList(&shoppingList);
+    user.addShoppingList(&shoppingList2);
+
 
     testing::internal::CaptureStdout();
     user.update();
-    std::string outputAfter = testing::internal::GetCapturedStdout();
-    EXPECT_TRUE(outputAfter.find("Lista1") != std::string::npos);  // "Lista1" è l'ultima lista modificata
-    EXPECT_TRUE(outputAfter.find("Lista2") == std::string::npos);  // verifico che non ci sia lista2
+    std::string output = testing::internal::GetCapturedStdout();
+    EXPECT_FALSE(output.contains("Lista1") );
 
 }
 
 TEST(UserTest, AddItemOnShoppingList) {
     User user("Luca");
-    ShoppingList shoppingList("Lista1", 14, 11, 2023);
-    ShoppingItem item("Mela", "Frutta");
-    int quantity = 3;
+    ShoppingList shoppingList("Lista1");
+    ShoppingItem item("banana", "Fruit");
+
+    user.addShoppingList(&shoppingList);
+    user.addItemonShoppingList(&shoppingList, item);
 
 
-    user.addItemonShoppingList(&shoppingList, item, quantity);
+    testing::internal::CaptureStdout();
+    user.update();
+    std::string output = testing::internal::GetCapturedStdout();
 
-    // Verifica: Controlla che lastShoppingListModified sia stato aggiornato correttamente
-    EXPECT_EQ(&shoppingList, user.getLastShoppingListModified());
-
-    // Verifica: Controlla che l'elemento sia effettivamente nella lista della spesa
-    const auto& items = shoppingList.getItems();
-    auto it = items.find(item);
-
-    ASSERT_NE(it, items.end());
-    EXPECT_EQ(it->second, quantity);
+    // Verifica che l'elemento sia stato aggiunto correttamente
+    EXPECT_TRUE(output.contains("banana") );
 }
 
-TEST(UserTest, RemoveItemFromShoppingList) {
+TEST(UserTest, RemoveItemOnShoppingList) {
     User user("Luca");
-    ShoppingList list("Luca's List", 31, 03, 2025);
-    ShoppingItem apple("Apple", "Fruit");
-    ShoppingItem bread("Bread", "Bakery");
+    ShoppingList shoppingList("Lista1");
+    ShoppingItem item("banana", "Fruit");
 
+    user.addShoppingList(&shoppingList);
+    user.addItemonShoppingList(&shoppingList, item);
+    user.removeItemonShoppingList(&shoppingList, item);
 
-    user.addItemonShoppingList(&list, apple, 3);
-    user.addItemonShoppingList(&list, bread, 1);
+    testing::internal::CaptureStdout();
+    user.update();
+    std::string output = testing::internal::GetCapturedStdout();
 
-    EXPECT_EQ(list.getItems().at(apple), 3);
-    EXPECT_EQ(list.getItems().at(bread), 1);
-
-    // L'utente rimuove parzialmente un elemento
-    user.removeItemonShoppingList(&list, apple);
-    EXPECT_EQ(list.getItems().at(apple), 2);
-
-    // L'utente rimuove completamente un elemento
-    user.removeItemonShoppingList(&list, bread);
-    EXPECT_FALSE(list.getItems().count(bread));
-
-    // L'utente rimuove tutte le quantità rimanenti di un elemento fino a svuotare completamente la lista
-    user.removeItemonShoppingList(&list, apple);
-    user.removeItemonShoppingList(&list, apple);
-    EXPECT_TRUE(list.getItems().empty());
+    // Verifica che l'elemento sia stato rimosso correttamente
+    EXPECT_FALSE(output.contains("banana") );
 }
+
+TEST(UserTest, testsearchItemsByName){
+    User user("Luca");
+    ShoppingList shoppingList("Lista1");
+    ShoppingItem item("banana", "Fruit");
+    ShoppingItem item2("apple", "Fruit");
+
+    user.addShoppingList(&shoppingList);
+    user.addItemonShoppingList(&shoppingList, item);
+    user.addItemonShoppingList(&shoppingList, item2);
+
+    testing::internal::CaptureStdout();
+    user.searchItemsByName(&shoppingList, "banana");
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_TRUE(output.contains("banana") );
+    EXPECT_FALSE(output.contains("apple") );
+}
+
+TEST(UserTest, testsearchItemsByCategory){
+    User user("Luca");
+    ShoppingList shoppingList("Lista1");
+    ShoppingItem item("banana", "Fruit");
+    ShoppingItem item2("apple", "Fruit");
+    ShoppingItem item3("carrot", "Vegetable");
+
+    user.addShoppingList(&shoppingList);
+    user.addItemonShoppingList(&shoppingList, item);
+    user.addItemonShoppingList(&shoppingList, item2);
+    user.addItemonShoppingList(&shoppingList, item3);
+
+    testing::internal::CaptureStdout();
+    user.searchItemsByCategory(&shoppingList, "Fruit");
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_TRUE(output.contains("banana") );
+    EXPECT_TRUE(output.contains("apple") );
+    EXPECT_FALSE(output.contains("carrot") );
+}
+
+TEST(UserTest, testSearchBoughtItems){
+    User user("Luca");
+    ShoppingList shoppingList("Lista1");
+    ShoppingItem item("banana", "Fruit");
+    ShoppingItem item2("apple", "Fruit");
+    ShoppingItem item3("carrot", "Vegetable");
+
+    user.addShoppingList(&shoppingList);
+    user.addItemonShoppingList(&shoppingList, item);
+    user.addItemonShoppingList(&shoppingList, item2);
+    user.addItemonShoppingList(&shoppingList, item3);
+
+    user.buyItem(&shoppingList, item);
+    user.buyItem(&shoppingList, item2);
+
+    testing::internal::CaptureStdout();
+    user.searchBoughtItems(&shoppingList);
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_TRUE(output.contains("banana") );
+    EXPECT_TRUE(output.contains("apple") );
+    EXPECT_FALSE(output.contains("carrot") );
+}
+
+TEST(UserTest, testSearchUnBoughtItems){
+    User user("Luca");
+    ShoppingList shoppingList("Lista1");
+    ShoppingItem item("banana", "Fruit");
+    ShoppingItem item2("apple", "Fruit");
+    ShoppingItem item3("carrot", "Vegetable");
+
+    user.addShoppingList(&shoppingList);
+    user.addItemonShoppingList(&shoppingList, item);
+    user.addItemonShoppingList(&shoppingList, item2);
+    user.addItemonShoppingList(&shoppingList, item3);
+
+    user.buyItem(&shoppingList, item);
+    user.buyItem(&shoppingList, item2);
+
+    testing::internal::CaptureStdout();
+    user.searchUnboughtItems(&shoppingList);
+    std::string output = testing::internal::GetCapturedStdout();
+
+    EXPECT_FALSE(output.contains("banana") );
+    EXPECT_FALSE(output.contains("apple") );
+    EXPECT_TRUE(output.contains("carrot") );
+}
+
+
+
+
+
+
+
+
+

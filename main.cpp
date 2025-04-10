@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    auto * list=new ShoppingList("Spesa Settimanale", 10, 11, 2023);
+    auto * list=new ShoppingList("Spesa Settimanale");
 
     ShoppingItem item1("Latte", "Alimenti");
     ShoppingItem item2("Pane", "Alimenti");
@@ -16,14 +16,15 @@ int main() {
     User user3("Pino");
 
     user1.addShoppingList(list);
-    user1.addItemonShoppingList(list, item1, 2);
+    user1.addItemonShoppingList(list, item1);
     user2.addShoppingList(list);
-    user2.addItemonShoppingList(list, item2, 3);
+    user2.addItemonShoppingList(list, item2);
+    user2.addItemonShoppingList(list, item2);
     user2.removeItemonShoppingList(list, item2);
 
+    user1.buyItem(list, item1);
+
     user2.removeShoppingList(list);
-    user2.addItemonShoppingList(list, item3, 1);
-    user2.printList(list);
-    user1.printList(list);
+    user2.addItemonShoppingList(list, item3);
 
 }
