@@ -24,12 +24,12 @@ void User::removeShoppingList(ShoppingList *shoppingList) {
     lastShoppingListModified = shoppingList;
 }
 
-void User::addItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem &item, int quantity) {
+void User::addItemonShoppingList(ShoppingList *shoppingList, const ShoppingItem &item) {
     if(!verifyPermissionModList(shoppingList)) {
         return;
     }
     lastShoppingListModified = shoppingList;
-    shoppingList->addItem(item,quantity);
+    shoppingList->addItem(item);
 
 }
 
@@ -42,18 +42,6 @@ void User::removeItemonShoppingList(ShoppingList *shoppingList, const ShoppingIt
 
 }
 
-void User::printList(ShoppingList *list) {
-    if(!verifyPermissionModList(list)) {
-        return;
-    }
-    cout << "Lista della spesa: " << list->getName() << endl;
-    const auto &items = list->getItems();
-    for (const auto &pair: items) {
-        cout << "- " << pair.first.getName()
-             << " (" << pair.first.getCategory()
-             << "): " << pair.second << " pezzi" << endl;
-    }
-}
 
 bool User::verifyPermissionModList(ShoppingList *shoppingList) {
     auto Existingshoppinglist = std::find_if(shoppingLists.begin(), shoppingLists.end(), [&shoppingList](ShoppingList* list) {

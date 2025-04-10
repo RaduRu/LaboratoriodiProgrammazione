@@ -47,6 +47,20 @@ public:
         return bought;
     }
 
+    int getQuantity() const {
+        return quantity;
+    }
+
+    void printItem() const {
+        cout << "Item: " << name << ", Category: " << category << ", Quantity: " << quantity;
+        if (bought) {
+            cout << ", X  ";
+        } else {
+            cout << ",  ";
+        }
+        cout << endl;
+    }
+
 
 private:
     string name;

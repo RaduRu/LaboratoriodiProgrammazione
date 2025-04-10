@@ -17,6 +17,15 @@ public:
     void addItem( const ShoppingItem& item);
     void removeItem(ShoppingItem item);
     const string &getName() const;
+    void searchItemsByName(string name);
+    void searchItemsByCategory(string category);
+    void searchItemsBought();
+    void searchItemsNotBought();
+    void setItemBought(ShoppingItem item);
+    void printList();
+
+
+
 
 
     void subscribe(Observer* o) override;
@@ -27,6 +36,7 @@ private:
     string name;
     list<ShoppingItem> Items;
     list<Observer*> ObserverList;
+    void PrintListsearch(list<ShoppingItem> list);
 };
 
 
