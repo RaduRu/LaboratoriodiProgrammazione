@@ -20,19 +20,39 @@ public:
         return category;
     }
 
-     bool isEqual (const ShoppingItem &item) const {
-        return (item.getName() == name && item.getCategory() == category);
-    }
-
     bool operator < (const ShoppingItem &item) const {
         return (name < item.getName() || (name == item.getName() && category < item.getCategory()));
     }
 
+    bool operator == (const ShoppingItem &item) const {
+        return (name == item.getName() && category == item.getCategory());
+    }
+
+    void setQuantity(int quantity) {
+        if (quantity < 1) {
+            throw std::invalid_argument("Quantity must be greater than 0");
+        }
+        this->quantity = quantity;
+    }
+
+    void addItem (){
+        quantity++;
+    }
+
+    void setBought() {
+        this->bought = !(this->bought);
+    }
+
+    bool isBought() const {
+        return bought;
+    }
 
 
 private:
     string name;
     string category;
+    int quantity = 1;
+    bool bought = false;
 };
 
 

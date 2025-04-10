@@ -6,11 +6,10 @@
 #include "ShoppingItem.h"
 #include <iostream>
 #include <map>
-#include "Date.h"
 using namespace std;
 
 
-ShoppingList::ShoppingList(const string &name, int g, int m, int a ):date(g,m,a){
+ShoppingList::ShoppingList(const string &name, int g, int m, int a ){
     this->name=name;
 }
 

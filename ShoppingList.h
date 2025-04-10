@@ -8,7 +8,7 @@
 #include "ShoppingItem.h"
 #include <list>
 #include <map>
-#include "Date.h"
+
 
 
 class ShoppingList : public Subject {
@@ -24,7 +24,6 @@ public:
     void notify() override;
 
 private:
-    Date date;
     string name;
     map<ShoppingItem,int> Items;
     list<Observer*> ObserverList;
