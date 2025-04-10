@@ -35,7 +35,7 @@ public:
         this->quantity = quantity;
     }
 
-    void addItem (){
+    void addOne (){
         quantity++;
     }
 

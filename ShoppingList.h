@@ -13,11 +13,11 @@
 
 class ShoppingList : public Subject {
 public:
-    ShoppingList(const string &name, int g, int m, int a);
-    void addItem( const ShoppingItem& item, int quantity);
+    ShoppingList(const string &name);
+    void addItem( const ShoppingItem& item);
     void removeItem(ShoppingItem item);
     const string &getName() const;
-    const map<ShoppingItem, int> &getItems() const;
+
 
     void subscribe(Observer* o) override;
     void unsubscribe(Observer* o)override;
@@ -25,7 +25,7 @@ public:
 
 private:
     string name;
-    map<ShoppingItem,int> Items;
+    list<ShoppingItem> Items;
     list<Observer*> ObserverList;
 };
 

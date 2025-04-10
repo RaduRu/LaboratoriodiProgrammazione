@@ -9,7 +9,7 @@
 using namespace std;
 
 
-ShoppingList::ShoppingList(const string &name, int g, int m, int a ){
+ShoppingList::ShoppingList(const string &name){
     this->name=name;
 }
 
@@ -17,35 +17,31 @@ const string &ShoppingList::getName() const {
     return name;
 }
 
-const map<ShoppingItem, int> &ShoppingList::getItems() const {
-    return Items;
-}
-
-void ShoppingList :: addItem(const ShoppingItem &Newitem, int quantity){
-    auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&Newitem](const pair<ShoppingItem, int>& element) {
-        return element.first.isEqual(Newitem);
+void ShoppingList :: addItem(const ShoppingItem &Newitem){
+    auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&Newitem](const ShoppingItem & element) {
+        return element == Newitem;
     });
     if (ExistingItem != Items.end()){
-        ExistingItem->second += quantity;
+        ExistingItem->addOne();
     }
     else{
-        Items.insert(pair<ShoppingItem,int>(Newitem,quantity));
+        Items.push_back(Newitem);
     }
 
     notify();
 }
 
 void ShoppingList :: removeItem(ShoppingItem item){
-    auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&item](const pair<ShoppingItem, int>& element) {
-        return element.first.isEqual(item);
+    auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&item](const ShoppingItem & element) {
+        return element == item;
     });
     if (ExistingItem != Items.end()){
-        if(ExistingItem->second > 1)
-            ExistingItem->second -= 1;
-        else if(ExistingItem->second == 1)
-            Items.erase(ExistingItem);
+        Items.erase(ExistingItem);
+        notify();
     }
-    notify();
+    else{
+        cout << "Item not found in the list." << endl;
+    }
 }
 
 void ShoppingList::subscribe(Observer *o) {
