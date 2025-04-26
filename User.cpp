@@ -64,17 +64,25 @@ cout << " L'utente " << ID << " è stato notificato che  " << lastShoppingListMo
 }
 
 void User::searchItemsByName(ShoppingList *shoppingList, const string &name) {
-    if(!verifyPermissionModList(shoppingList)) {
+    if (!verifyPermissionModList(shoppingList)) {
         return;
     }
-    shoppingList->ItemsByName(name);
+    auto foundItems = shoppingList->ItemsByName(name);
+    for (const auto& item : foundItems) {
+        item.printItem();
+    }
 }
+
 
 void User::searchItemsByCategory(ShoppingList *shoppingList, const string &category) {
     if(!verifyPermissionModList(shoppingList)) {
         return;
     }
-    shoppingList->ItemsByCategory(category);
+    list<ShoppingItem> foundItems = shoppingList->ItemsByCategory(category);
+    for (const auto &item : foundItems) {
+        item.printItem();
+    }
+
 
 }
 
@@ -82,7 +90,10 @@ void User::searchBoughtItems(ShoppingList *shoppingList) {
     if(!verifyPermissionModList(shoppingList)) {
         return;
     }
-    shoppingList->ItemsBought();
+    list<ShoppingItem> foundItems = shoppingList->ItemsBought();
+    for (const auto &item : foundItems) {
+        item.printItem();
+    }
 
 }
 
@@ -90,7 +101,10 @@ void User::searchUnboughtItems(ShoppingList *shoppingList) {
     if(!verifyPermissionModList(shoppingList)) {
         return;
     }
-    shoppingList->ItemsNotBought();
+    list<ShoppingItem> foundItems = shoppingList->ItemsNotBought();
+    for (const auto &item : foundItems) {
+        item.printItem();
+    }
 
 }
 

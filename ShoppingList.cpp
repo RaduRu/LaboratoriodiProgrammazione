@@ -32,7 +32,7 @@ void ShoppingList :: addItem(const ShoppingItem &Newitem){
     notify();
 }
 
-void ShoppingList :: removeItem(ShoppingItem item){
+void ShoppingList :: removeItem(const ShoppingItem &item){
     auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&item](const ShoppingItem & element) {
         return element == item;
     });
@@ -45,11 +45,6 @@ void ShoppingList :: removeItem(ShoppingItem item){
     }
 }
 
-void ShoppingList::PrintListsearch(list<ShoppingItem> list) {
-    for (const auto &item : list) {
-        item.printItem();
-    }
-}
 
 void ShoppingList::printList() {
 
@@ -60,51 +55,51 @@ void ShoppingList::printList() {
 
 }
 
-void ShoppingList::ItemsByName(string name) {
+list<ShoppingItem>  ShoppingList::ItemsByName(string name) {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.getName().contains(name)) {
             foundItems.push_back(item);
         }
     }
-    PrintListsearch(foundItems);
+    return foundItems;
 
 }
 
-void ShoppingList::ItemsByCategory(string category) {
+list<ShoppingItem>  ShoppingList::ItemsByCategory(string category) {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.getCategory()==category) {
             foundItems.push_back(item);
         }
     }
-    PrintListsearch(foundItems);
+    return foundItems;
 
 }
 
-void ShoppingList::ItemsBought() {
+list<ShoppingItem>  ShoppingList::ItemsBought() {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.isBought()) {
             foundItems.push_back(item);
         }
     }
-    PrintListsearch(foundItems);
+    return foundItems;
 
 }
 
-void ShoppingList::ItemsNotBought() {
+list<ShoppingItem>  ShoppingList::ItemsNotBought() {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (!item.isBought()) {
             foundItems.push_back(item);
         }
     }
-    PrintListsearch(foundItems);
+    return foundItems;
 
 }
 
-void ShoppingList::setItemBought(ShoppingItem item) {
+void ShoppingList::setItemBought(const ShoppingItem& item) {
     auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&item](const ShoppingItem & element) {
         return element == item;
     });

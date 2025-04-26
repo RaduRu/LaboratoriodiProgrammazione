@@ -53,15 +53,14 @@ public:
     }
 
     void printItem() const {
-        cout << " --> " << name << "  " << category << " N: " << quantity;
+        cout << "--> " << name << " " << category << " " << quantity;
+
         if (bought) {
-            cout << ", X  ";
-        } else {
-            cout << ",  ";
+            cout << " [X]";
         }
+
         cout << endl;
     }
-
 
 private:
     string name;

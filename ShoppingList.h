@@ -15,18 +15,14 @@ class ShoppingList : public Subject {
 public:
     ShoppingList(const string &name);
     void addItem( const ShoppingItem& item);
-    void removeItem(ShoppingItem item);
+    void removeItem(const ShoppingItem& item);
     const string &getName() const;
-    void ItemsByName(string name);
-    void ItemsByCategory(string category);
-    void ItemsBought();
-    void ItemsNotBought();
-    void setItemBought(ShoppingItem item);
+    list<ShoppingItem> ItemsByName(string name);
+    list<ShoppingItem>  ItemsByCategory(string category);
+    list<ShoppingItem>  ItemsBought();
+    list<ShoppingItem> ItemsNotBought();
+    void setItemBought(const ShoppingItem& item);
     void printList();
-
-
-
-
 
     void subscribe(Observer* o) override;
     void unsubscribe(Observer* o)override;
@@ -36,7 +32,6 @@ private:
     string name;
     list<ShoppingItem> Items;
     list<Observer*> ObserverList;
-    void PrintListsearch(list<ShoppingItem> list);
 };
 
 
