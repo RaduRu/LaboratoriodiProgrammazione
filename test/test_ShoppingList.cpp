@@ -50,45 +50,83 @@ TEST(ShoppingListTest, RemoveItemCorrectly) {
     list.printList();
     std::string output = testing::internal::GetCapturedStdout();
     EXPECT_FALSE(output.contains("Apple"));
+
+    //prova a rimuovere un elemento non esistente
+    testing::internal::CaptureStdout();
+    list.removeItem(apple);
+    output = testing::internal::GetCapturedStdout();
+    EXPECT_TRUE(output.contains("Item not found in the list."));
 }
 
-TEST(ShoppingListTest, testItemsByName){
+TEST(ShoppingListTest, TestItemsByName) {
     ShoppingList list("My Shopping List");
     ShoppingItem apple("Apple", "Fruit");
-    ShoppingItem juice("Apple Juice", "Beverage");
-
-
+    ShoppingItem appleJuice("Apple Juice", "Beverage");
     ShoppingItem banana("Banana", "Fruit");
+
     list.addItem(apple);
+    list.addItem(appleJuice);
     list.addItem(banana);
-    list.addItem(juice);
 
-    testing::internal::CaptureStdout();
-    list.ItemsByName("Apple");
-    std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_TRUE(output.contains("Apple"));
-    EXPECT_TRUE(output.contains("Apple Juice"));
-    EXPECT_FALSE(output.contains("Banana"));
 
+    std::list<ShoppingItem> foundItems = list.ItemsByName("Apple");
+    EXPECT_EQ(foundItems.size(), 2);
+
+    //controllo che siano proprio Apple e Apple Juice
+    bool foundApple = false;
+    bool foundAppleJuice = false;
+    bool foundBanana = false;
+
+    for (const auto& item : foundItems) {
+        if (item.getName() == "Apple") {
+            foundApple = true;
+        } else if (item.getName() == "Apple Juice") {
+            foundAppleJuice = true;
+        }
+    }
+    EXPECT_TRUE(foundApple);
+    EXPECT_TRUE(foundAppleJuice);
+
+    for (const auto& item : foundItems) {
+        if (item.getName() == "Banana") {
+            foundBanana = true;
+        }
+    }
+
+    EXPECT_FALSE(foundBanana);
 }
 
-TEST(ShoppingListTest, testItemsByCategory){
+
+TEST(ShoppingListTest, TestItemsByCategory) {
     ShoppingList list("My Shopping List");
     ShoppingItem apple("Apple", "Fruit");
-    ShoppingItem juice("Apple Juice", "Beverage");
+    ShoppingItem appleJuice("Apple Juice", "Beverage");
     ShoppingItem banana("Banana", "Fruit");
+
     list.addItem(apple);
+    list.addItem(appleJuice);
     list.addItem(banana);
-    list.addItem(juice);
 
-    testing::internal::CaptureStdout();
-    list.ItemsByCategory("Fruit");
-    std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_TRUE(output.contains("Apple"));
-    EXPECT_TRUE(output.contains("Banana"));
-    EXPECT_FALSE(output.contains("Apple Juice"));
+    std::list<ShoppingItem> foundItems = list.ItemsByCategory("Fruit");
+    EXPECT_EQ(foundItems.size(), 2);
 
+    bool foundApple = false;
+    bool foundBanana = false;
+    bool foundAppleJuice = false;
+
+    for (const auto& item : foundItems) {
+        if (item.getName() == "Apple") {
+            foundApple = true;
+        } else if (item.getName() == "Banana") {
+            foundBanana = true;
+        }
+    }
+
+    EXPECT_TRUE(foundApple);
+    EXPECT_TRUE(foundBanana);
+    EXPECT_FALSE(foundAppleJuice);
 }
+
 
 TEST(ShoppingListTest, testItemsBought){
     ShoppingList list("My Shopping List");
@@ -101,35 +139,59 @@ TEST(ShoppingListTest, testItemsBought){
     list.setItemBought(apple);
     list.setItemBought(banana);
 
-    testing::internal::CaptureStdout();
-    list.ItemsBought();
-    std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_TRUE(output.contains("Apple"));
-    EXPECT_TRUE(output.contains("Banana"));
-    EXPECT_FALSE(output.contains("Apple Juice"));
+    std::list<ShoppingItem> boughtItems = list.ItemsBought();
+    bool foundApple = false;
+    bool foundBanana = false;
+    bool foundAppleJuice = false;
 
+    for (const auto& item : boughtItems) {
+        if (item.getName() == "Apple") {
+            foundApple = true;
+        } else if (item.getName() == "Banana") {
+            foundBanana = true;
+        } else if (item.getName() == "Apple Juice") {
+            foundAppleJuice = true;
+        }
+    }
+
+    EXPECT_TRUE(foundApple);
+    EXPECT_TRUE(foundBanana);
+    EXPECT_FALSE(foundAppleJuice);
 }
 
-
-
-TEST(ShoppingListTest, testItemsnotBought){
+TEST(ShoppingListTest, testItemsNotBought) {
     ShoppingList list("My Shopping List");
     ShoppingItem apple("Apple", "Fruit");
     ShoppingItem juice("Apple Juice", "Beverage");
     ShoppingItem banana("Banana", "Fruit");
+
+
     list.addItem(apple);
     list.addItem(banana);
     list.addItem(juice);
+    list.setItemBought(apple);
     list.setItemBought(banana);
+    std::list<ShoppingItem> notBoughtItems = list.ItemsNotBought();
 
-    testing::internal::CaptureStdout();
-    list.ItemsNotBought();
-    std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_TRUE(output.contains("Apple"));
-    EXPECT_FALSE(output.contains("Banana"));
-    EXPECT_TRUE(output.contains("Apple Juice"));
+    bool foundApple = false;
+    bool foundBanana = false;
+    bool foundAppleJuice = false;
 
+    for (const auto& item : notBoughtItems) {
+        if (item.getName() == "Apple") {
+            foundApple = true;
+        } else if (item.getName() == "Banana") {
+            foundBanana = true;
+        } else if (item.getName() == "Apple Juice") {
+            foundAppleJuice = true;
+        }
+    }
+
+    EXPECT_FALSE(foundApple);
+    EXPECT_FALSE(foundBanana);
+    EXPECT_TRUE(foundAppleJuice);
 }
+
 
 
 
