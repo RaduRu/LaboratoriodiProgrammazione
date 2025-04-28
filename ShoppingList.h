@@ -13,15 +13,15 @@
 
 class ShoppingList : public Subject {
 public:
-    ShoppingList(const string &name);
+    explicit ShoppingList(const string &name);
     void addItem( const ShoppingItem& item);
     void removeItem(const ShoppingItem& item);
     const string &getName() const;
-    list<ShoppingItem> ItemsByName(string name);
-    list<ShoppingItem>  ItemsByCategory(string category);
+    list<ShoppingItem> ItemsByName(const string &nameItem);
+    list<ShoppingItem>  ItemsByCategory(const string &category);
     list<ShoppingItem>  ItemsBought();
     list<ShoppingItem> ItemsNotBought();
-    void setItemBought(const ShoppingItem& item);
+    void setItemBought(ShoppingItem& item);
     void printList();
 
     void subscribe(Observer* o) override;

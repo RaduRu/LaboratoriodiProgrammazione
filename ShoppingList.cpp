@@ -55,10 +55,10 @@ void ShoppingList::printList() {
 
 }
 
-list<ShoppingItem>  ShoppingList::ItemsByName(string name) {
+list<ShoppingItem>  ShoppingList::ItemsByName(const string &nameItem) {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
-        if (item.getName().contains(name)) {
+        if (item.getName().contains(nameItem)) {
             foundItems.push_back(item);
         }
     }
@@ -66,7 +66,7 @@ list<ShoppingItem>  ShoppingList::ItemsByName(string name) {
 
 }
 
-list<ShoppingItem>  ShoppingList::ItemsByCategory(string category) {
+list<ShoppingItem>  ShoppingList::ItemsByCategory(const string &category) {
     list<ShoppingItem> foundItems;
     for (const auto &item : Items) {
         if (item.getCategory()==category) {
@@ -99,7 +99,7 @@ list<ShoppingItem>  ShoppingList::ItemsNotBought() {
 
 }
 
-void ShoppingList::setItemBought(const ShoppingItem& item) {
+void ShoppingList::setItemBought(ShoppingItem& item) {
     auto ExistingItem = std::find_if(Items.begin(), Items.end(), [&item](const ShoppingItem & element) {
         return element == item;
     });

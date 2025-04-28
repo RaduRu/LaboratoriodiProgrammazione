@@ -96,6 +96,15 @@ TEST(ShoppingListTest, TestItemsByName) {
     EXPECT_FALSE(foundBanana);
 }
 
+TEST(ShoppingListTest, TestItemsByName_NoMatch) {
+    ShoppingList list("My Shopping List");
+    ShoppingItem apple("Apple", "Fruit");
+    list.addItem(apple);
+
+    std::list<ShoppingItem> foundItems = list.ItemsByName("Orange");
+    EXPECT_TRUE(foundItems.empty());
+}
+
 
 TEST(ShoppingListTest, TestItemsByCategory) {
     ShoppingList list("My Shopping List");
@@ -125,6 +134,15 @@ TEST(ShoppingListTest, TestItemsByCategory) {
     EXPECT_TRUE(foundApple);
     EXPECT_TRUE(foundBanana);
     EXPECT_FALSE(foundAppleJuice);
+}
+
+TEST(ShoppingListTest, TestItemsByCategory_NoMatch) {
+    ShoppingList list("My Shopping List");
+    ShoppingItem apple("Apple", "Fruit");
+    list.addItem(apple);
+
+    std::list<ShoppingItem> foundItems = list.ItemsByCategory("Vegetable");
+    EXPECT_TRUE(foundItems.empty());
 }
 
 
@@ -159,6 +177,18 @@ TEST(ShoppingListTest, testItemsBought){
     EXPECT_FALSE(foundAppleJuice);
 }
 
+TEST(ShoppingListTest, TestItemsBoughtEmpty) {
+    ShoppingList list("My Shopping List");
+    ShoppingItem apple("Apple", "Fruit");
+    ShoppingItem banana("Banana", "Fruit");
+
+    list.addItem(apple);
+    list.addItem(banana);
+
+    std::list<ShoppingItem> boughtItems = list.ItemsBought();
+    EXPECT_TRUE(boughtItems.empty());
+}
+
 TEST(ShoppingListTest, testItemsNotBought) {
     ShoppingList list("My Shopping List");
     ShoppingItem apple("Apple", "Fruit");
@@ -190,6 +220,20 @@ TEST(ShoppingListTest, testItemsNotBought) {
     EXPECT_FALSE(foundApple);
     EXPECT_FALSE(foundBanana);
     EXPECT_TRUE(foundAppleJuice);
+}
+
+TEST(ShoppingListTest, TestItemsNotBoughtEmpty) {
+    ShoppingList list("My Shopping List");
+    ShoppingItem apple("Apple", "Fruit");
+    ShoppingItem banana("Banana", "Fruit");
+
+    list.addItem(apple);
+    list.addItem(banana);
+    list.setItemBought(apple);
+    list.setItemBought(banana);
+
+    std::list<ShoppingItem> notBoughtItems = list.ItemsNotBought();
+    EXPECT_TRUE(notBoughtItems.empty());
 }
 
 

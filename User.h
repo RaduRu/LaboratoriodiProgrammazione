@@ -23,7 +23,7 @@ public:
     void searchItemsByCategory(ShoppingList *shoppingList, const string &category);
     void searchBoughtItems(ShoppingList *shoppingList);
     void searchUnboughtItems(ShoppingList *shoppingList);
-    void buyItem(ShoppingList *shoppingList, const ShoppingItem &item);
+    void buyItem(ShoppingList *shoppingList,ShoppingItem &item);
 
 
 

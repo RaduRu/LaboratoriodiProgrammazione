@@ -108,7 +108,7 @@ void User::searchUnboughtItems(ShoppingList *shoppingList) {
 
 }
 
-void User::buyItem(ShoppingList *shoppingList, const ShoppingItem &item) {
+void User::buyItem(ShoppingList *shoppingList, ShoppingItem &item) {
     if(!verifyPermissionModList(shoppingList)) {
         return;
     }
